@@ -1,0 +1,44 @@
+import pandas as pd
+import numpy as np
+
+# Create dummy stock data as a list of dictionaries
+dummy_stock_data = [
+    {"timestamp": "2023-01-01 09:30:00", "open": 150.0, "high": 151.0, "low": 149.5, "close": 150.5, "volume": 100000},
+    {"timestamp": "2023-01-01 09:31:00", "open": 150.5, "high": 151.2, "low": 150.0, "close": 151.1, "volume": 120000},
+    {"timestamp": "2023-01-01 09:32:00", "open": 151.1, "high": 151.5, "low": 150.8, "close": 151.3, "volume": 110000},
+    {"timestamp": "2023-01-01 09:33:00", "open": 151.3, "high": 152.0, "low": 151.0, "close": 151.8, "volume": 130000},
+    {"timestamp": "2023-01-01 09:34:00", "open": 151.8, "high": 152.5, "low": 151.5, "close": 152.2, "volume": 150000},
+    {"timestamp": "2023-01-01 09:35:00", "open": 152.2, "high": 153.0, "low": 152.0, "close": 152.8, "volume": 140000},
+    {"timestamp": "2023-01-01 09:36:00", "open": 152.8, "high": 153.5, "low": 152.5, "close": 153.3, "volume": 160000},
+    {"timestamp": "2023-01-01 09:37:00", "open": 153.3, "high": 154.0, "low": 153.0, "close": 153.8, "volume": 170000},
+    {"timestamp": "2023-01-01 09:38:00", "open": 153.8, "high": 154.5, "low": 153.5, "close": 154.2, "volume": 180000},
+    {"timestamp": "2023-01-01 09:39:00", "open": 154.2, "high": 155.0, "low": 154.0, "close": 154.7, "volume": 190000},
+    {"timestamp": "2023-01-01 09:40:00", "open": 154.7, "high": 155.5, "low": 154.5, "close": 155.1, "volume": 200000},
+    {"timestamp": "2023-01-01 09:41:00", "open": 155.1, "high": 156.0, "low": 155.0, "close": 155.6, "volume": 210000},
+    {"timestamp": "2023-01-01 09:42:00", "open": 155.6, "high": 156.5, "low": 155.5, "close": 156.0, "volume": 220000},
+    {"timestamp": "2023-01-01 09:43:00", "open": 156.0, "high": 157.0, "low": 156.0, "close": 156.5, "volume": 230000},
+    {"timestamp": "2023-01-01 09:44:00", "open": 156.5, "high": 157.5, "low": 156.5, "close": 157.0, "volume": 240000},
+    {"timestamp": "2023-01-01 09:45:00", "open": 157.0, "high": 158.0, "low": 157.0, "close": 157.5, "volume": 250000},
+    {"timestamp": "2023-01-01 09:46:00", "open": 157.5, "high": 158.5, "low": 157.5, "close": 158.0, "volume": 260000},
+    {"timestamp": "2023-01-01 09:47:00", "open": 158.0, "high": 159.0, "low": 158.0, "close": 158.5, "volume": 270000},
+    {"timestamp": "2023-01-01 09:48:00", "open": 158.5, "high": 159.5, "low": 158.5, "close": 159.0, "volume": 280000},
+    {"timestamp": "2023-01-01 09:49:00", "open": 159.0, "high": 160.0, "low": 159.0, "close": 159.5, "volume": 290000},
+    {"timestamp": "2023-01-01 09:50:00", "open": 159.5, "high": 160.5, "low": 159.5, "close": 160.0, "volume": 300000}
+]
+
+
+# 1. Create a DataFrame from the dummy data
+df = pd.DataFrame(dummy_stock_data)
+
+# 2. Convert the 'timestamp' column to datetime objects
+df['timestamp'] = pd.to_datetime(df['timestamp'])
+
+# 3. Set the 'timestamp' column as the DataFrame's index
+df = df.set_index('timestamp')
+
+# 4. Calculate a 20-period moving average for the 'close' price
+window_size = 20
+df['moving_average'] = df['close'].rolling(window=window_size).mean()
+
+# Display the first few rows of the processed DataFrame
+display(df.head())
