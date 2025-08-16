@@ -1,0 +1,20 @@
+import requests
+import pandas as pd
+
+def fetch_stock_data(symbol):
+    """Fetches real-time stock data for a given symbol."""
+    # Replace with a real API endpoint and your API key
+    # Example using a placeholder URL
+    url = f"https://api.example.com/stock/{symbol}/realtime"
+    params = {"apikey": "YOUR_API_KEY"}
+    response = requests.get(url, params=params)
+    response.raise_for_status()  # Raise an exception for bad status codes
+    data = response.json()
+    return data
+
+# Example usage (replace 'AAPL' with the desired stock symbol)
+try:
+    stock_data = fetch_stock_data('AAPL')
+    print(stock_data)
+except requests.exceptions.RequestException as e:
+    print(f"Error fetching data: {e}")
